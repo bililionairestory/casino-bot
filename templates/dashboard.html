@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Casino Bot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">👋 Welcome, {{ user.username }}!</h1>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h2 class="card-title h5 mb-0">Account Information</h2>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>Joined:</strong> {{ user.created_at.strftime('%Y-%m-%d') }}</p>
+                        
+                        {% if user.discord_id %}
+                        <div class="alert alert-success">
+                            <p class="mb-0">✅ Discord account linked: <strong>{{ user.discord_id }}</strong></p>
+                        </div>
+                        {% else %}
+                        <div class="alert alert-warning">
+                            <p class="mb-0">⚠️ Discord account not linked</p>
+                            <a href="{{ url_for('link_discord') }}" class="btn btn-outline-primary btn-sm mt-2">Link Discord Account</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                {% if discord_data %}
+                <div class="card mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h2 class="card-title h5 mb-0">Discord Bot Stats</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card bg-dark mb-3">
+                                    <div class="card-body text-center">
+                                        <h3 class="display-4">💰 {{ discord_data.balance }}</h3>
+                                        <p class="lead">Current Balance</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                {% if 'last_daily' in discord_data %}
+                                <div class="card bg-dark mb-3">
+                                    <div class="card-body text-center">
+                                        <h5>Daily Reward</h5>
+                                        {% set last_daily = discord_data.last_daily|float %}
+                                        {% set now = now|default(none) or (session.now|float if session.now else none) or (((now|int if now else 0) or 0) + 0) %}
+                                        {% set time_passed = now - last_daily if now and last_daily else 86400 %}
+                                        {% if time_passed >= 86400 %}
+                                        <p class="text-success">✅ Available Now!</p>
+                                        <p>Use <code>!daily</code> in Discord</p>
+                                        {% else %}
+                                        {% set hours = ((86400 - time_passed) / 3600)|int %}
+                                        {% set minutes = ((86400 - time_passed) % 3600 / 60)|int %}
+                                        <p class="text-warning">⏰ Available in {{ hours }}h {{ minutes }}m</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        {% if discord_data.stats %}
+                        <h3 class="mt-4">Gambling Stats</h3>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>🎰 Slots Played</td>
+                                        <td>{{ discord_data.stats.slots_played|default(0) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>🏆 Slots Won</td>
+                                        <td>{{ discord_data.stats.slots_won|default(0) }}</td>
+                                    </tr>
+                                    {% if discord_data.stats.slots_played > 0 %}
+                                    <tr>
+                                        <td>📊 Win Rate</td>
+                                        <td>{{ (discord_data.stats.slots_won / discord_data.stats.slots_played * 100)|round(1) }}%</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% if discord_data.stats.highest_win %}
+                                    <tr>
+                                        <td>💎 Highest Win</td>
+                                        <td>{{ discord_data.stats.highest_win }}</td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h3>No Discord Data Available</h3>
+                        {% if user.discord_id %}
+                        <p>Your Discord account is linked but no data has been found. Try interacting with the bot by using the <code>!daily</code> command in Discord to claim your first coins!</p>
+                        {% else %}
+                        <p>Link your Discord account to see your bot stats here.</p>
+                        <a href="{{ url_for('link_discord') }}" class="btn btn-primary">Link Discord Account</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title h5 mb-0">Quick Guide</h2>
+                    </div>
+                    <div class="card-body">
+                        <p>Here's how to get started with the Discord Gambling Bot:</p>
+                        <ol>
+                            <li>Link your Discord account (if not already done)</li>
+                            <li>Use <code>!daily</code> to get your first coins</li>
+                            <li>Try the slot machine with <code>!slot &lt;bet&gt;</code></li>
+                            <li>Check your progress with <code>!balance</code></li>
+                        </ol>
+                        <a href="{{ url_for('how_to_play') }}" class="btn btn-outline-info">View Full Guide</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

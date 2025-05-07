@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard - Casino Bot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">🏆 Global Leaderboard</h1>
+        <p class="lead mb-4">The richest gamblers across all Discord servers</p>
+        
+        {% if leaderboard_data %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Player</th>
+                        <th scope="col">Balance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for index, (user_id, data) in enumerate(leaderboard_data, 1) %}
+                    <tr{% if index <= 3 %} class="table-primary"{% endif %}>
+                        <td>
+                            {% if index == 1 %}
+                            <span class="badge bg-warning badge-rank">🥇 1</span>
+                            {% elif index == 2 %}
+                            <span class="badge bg-secondary badge-rank">🥈 2</span>
+                            {% elif index == 3 %}
+                            <span class="badge bg-danger badge-rank">🥉 3</span>
+                            {% else %}
+                            <span class="badge bg-dark badge-rank">{{ index }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if data.username is defined %}
+                                {{ data.username }}
+                            {% else %}
+                                User {{ user_id[-4:] }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="fw-bold">💰 {{ '{:,}'.format(data.balance) }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="alert alert-info">
+            <h3 class="h5">No leaderboard data available yet</h3>
+            <p>Be the first to play and get on the leaderboard!</p>
+        </div>
+        {% endif %}
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h2 class="h4 card-title">How to Climb the Leaderboard</h2>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-transparent">
+                                <i class="bi bi-calendar-check me-2"></i> Claim daily rewards with <code>!daily</code>
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <i class="bi bi-dice-5 me-2"></i> Win at games like <code>!slot</code>
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <i class="bi bi-arrow-up-right me-2"></i> Take calculated risks on higher bets
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item bg-transparent">
+                                <i class="bi bi-hand-thumbs-up me-2"></i> Vote for the bot to get multipliers
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <i class="bi bi-gem me-2"></i> Look for special milestone rewards
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <i class="bi bi-stopwatch me-2"></i> Play consistently to accumulate coins
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{{ url_for('how_to_play') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-journal-text me-2"></i>Learn How to Play
+                    </a>
+                    {% if not current_user.is_authenticated %}
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">
+                        <i class="bi bi-person-plus me-2"></i>Create Account
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

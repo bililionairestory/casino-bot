@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Link Discord Account - Casino Bot{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title h4 mb-0">Link Your Discord Account</h2>
+            </div>
+            <div class="card-body">
+                <p>Linking your Discord account will allow you to view your bot statistics on the web dashboard.</p>
+                
+                <div class="alert alert-info">
+                    <h5>How to find your Discord ID:</h5>
+                    <ol>
+                        <li>Open Discord and go to <strong>User Settings</strong> (the gear icon)</li>
+                        <li>Go to <strong>Advanced</strong> and enable <strong>Developer Mode</strong></li>
+                        <li>Right-click on your username anywhere and select <strong>Copy ID</strong></li>
+                    </ol>
+                </div>
+                
+                <form method="POST" action="{{ url_for('link_discord') }}">
+                    <div class="mb-3">
+                        <label for="discord_id" class="form-label">Your Discord ID</label>
+                        <input type="text" class="form-control" id="discord_id" name="discord_id" required autofocus placeholder="e.g., 123456789012345678">
+                        <div class="form-text">This is a numerical ID, not your Discord username.</div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Link Account</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-link">Back to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

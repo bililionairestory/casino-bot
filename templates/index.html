@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}Casino Bot - Discord Gambling Bot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center mb-5">
+        <h1 class="display-4 mb-3">🎰 Discord Casino Bot</h1>
+        <p class="lead mb-4">A virtual gambling experience for your Discord server</p>
+        <div class="d-grid gap-2 d-md-block">
+            <a href="https://discord.com/api/oauth2/authorize?client_id=YOUR_CLIENT_ID&permissions=2048&scope=bot%20applications.commands" class="btn btn-primary btn-lg px-4 me-md-2">
+                <i class="bi bi-discord me-2"></i>Add to Discord
+            </a>
+            <a href="{{ url_for('how_to_play') }}" class="btn btn-outline-secondary btn-lg px-4">
+                <i class="bi bi-joystick me-2"></i>How to Play
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-5">
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h2 class="card-title h4 mb-3">💰 Virtual Economy</h2>
+                <p class="card-text">Collect daily rewards, earn coins, and climb the leaderboard to become the richest gambler!</p>
+                <div class="d-flex justify-content-center display-5 gap-2 mb-3">
+                    <span class="display-symbol">💰</span>
+                    <span class="display-symbol">👑</span>
+                </div>
+                <a href="{{ url_for('leaderboard') }}" class="btn btn-outline-primary">View Leaderboard</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h2 class="card-title h4 mb-3">🎰 Casino Games</h2>
+                <p class="card-text">Try your luck with exciting slot machines and more games coming soon!</p>
+                <div class="d-flex justify-content-center display-5 gap-2 mb-3">
+                    <span class="display-symbol slot-animation">7️⃣</span>
+                    <span class="display-symbol slot-animation" style="animation-delay: 0.1s">🎰</span>
+                    <span class="display-symbol slot-animation" style="animation-delay: 0.2s">💎</span>
+                </div>
+                <a href="{{ url_for('how_to_play') }}#slots" class="btn btn-outline-primary">Learn to Play</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <h2 class="card-title h4 mb-3">🎮 Easy to Use</h2>
+                <p class="card-text">Simple commands make gambling fun and accessible for everyone on your server.</p>
+                <div class="d-flex justify-content-center display-5 gap-2 mb-3">
+                    <span class="display-symbol">⌨️</span>
+                    <span class="display-symbol">🎯</span>
+                </div>
+                <a href="{{ url_for('register') }}" class="btn btn-outline-primary">Create Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="card bg-dark">
+            <div class="card-body">
+                <h3 class="card-title h4 mb-3 text-center">🚀 Getting Started</h3>
+                <ol class="mb-0">
+                    <li class="mb-2">Add the bot to your Discord server using the button above</li>
+                    <li class="mb-2">Use <code>!help</code> to see all available commands</li>
+                    <li class="mb-2">Claim your daily reward with <code>!daily</code></li>
+                    <li class="mb-2">Try your luck with <code>!slot &lt;bet&gt;</code></li>
+                    <li>Create a web account to track your progress and see global stats</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12 text-center">
+        <h2 class="h3 mb-4">Popular Commands</h2>
+        <div class="table-responsive">
+            <table class="table table-dark table-striped">
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>!help</code></td>
+                        <td>Display all available commands</td>
+                    </tr>
+                    <tr>
+                        <td><code>!balance</code></td>
+                        <td>Check your current balance</td>
+                    </tr>
+                    <tr>
+                        <td><code>!daily</code></td>
+                        <td>Claim your daily reward</td>
+                    </tr>
+                    <tr>
+                        <td><code>!slot &lt;bet&gt;</code></td>
+                        <td>Play the slot machine with specified bet</td>
+                    </tr>
+                    <tr>
+                        <td><code>!leaderboard</code></td>
+                        <td>View the richest players in your server</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

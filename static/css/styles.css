@@ -1,0 +1,48 @@
+/* Custom styles for the Discord Casino Bot web interface */
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+/* Card hover effect */
+.card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Make casino symbols larger in certain contexts */
+.display-symbol {
+    font-size: 2rem;
+}
+
+/* Custom badge for leaderboard ranks */
+.badge-rank {
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+/* Make active nav item more visible */
+.nav-link.active {
+    font-weight: bold;
+    border-bottom: 2px solid var(--bs-primary);
+}
+
+/* Animated slot machine effect for homepage */
+@keyframes slotSpin {
+    0% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.slot-animation {
+    animation: slotSpin 0.5s ease-out;
+}

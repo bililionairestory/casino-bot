@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}How to Play - Casino Bot{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="mb-4">🎮 How to Play</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="card-title h5 mb-0">Getting Started</h2>
+            </div>
+            <div class="card-body">
+                <ol>
+                    <li class="mb-2">Add the bot to your Discord server using the link on the <a href="{{ url_for('index') }}">home page</a>.</li>
+                    <li class="mb-2">Use the <code>!help</code> command to see all available commands.</li>
+                    <li class="mb-2">Get your first coins by using the <code>!daily</code> command to claim your daily reward.</li>
+                    <li class="mb-2">Start playing games to earn more coins!</li>
+                </ol>
+            </div>
+        </div>
+        
+        <h2 class="mb-3">Available Games</h2>
+        
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="card-title h5 mb-0">🎰 Slot Machine</h3>
+            </div>
+            <div class="card-body">
+                <h4>How to Play</h4>
+                <p>Use the <code>!slot &lt;bet&gt;</code> command to play. For example: <code>!slot 50</code> to bet 50 coins.</p>
+                
+                <h4>Rules</h4>
+                <ul>
+                    <li>Minimum bet is 10 coins.</li>
+                    <li>You win if you get 2 or 3 matching symbols in a row.</li>
+                    <li>Different symbols have different payout rates.</li>
+                    <li>Wild symbols (🎰) can substitute for any symbol except Scatter.</li>
+                    <li>Scatter symbols (*️⃣) count anywhere on the line.</li>
+                </ul>
+                
+                <h4>Symbols and Payouts</h4>
+                <div class="table-responsive">
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Symbol</th>
+                                <th>Type</th>
+                                <th>3 of a kind</th>
+                                <th>2 of a kind</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>7️⃣</td>
+                                <td>Rare</td>
+                                <td>500:1</td>
+                                <td>25:1</td>
+                            </tr>
+                            <tr>
+                                <td>💎</td>
+                                <td>Uncommon</td>
+                                <td>25:1</td>
+                                <td>10:1</td>
+                            </tr>
+                            <tr>
+                                <td>🎰</td>
+                                <td>Wild</td>
+                                <td>5:1</td>
+                                <td>3:1</td>
+                            </tr>
+                            <tr>
+                                <td>*️⃣</td>
+                                <td>Scatter</td>
+                                <td>3:1</td>
+                                <td>2:1</td>
+                            </tr>
+                            <tr>
+                                <td>🔔</td>
+                                <td>Medium</td>
+                                <td>2:1</td>
+                                <td>1:1</td>
+                            </tr>
+                            <tr>
+                                <td>🍊</td>
+                                <td>Common</td>
+                                <td>1:1</td>
+                                <td>1:1</td>
+                            </tr>
+                            <tr>
+                                <td>🍋</td>
+                                <td>Common</td>
+                                <td>0.75:1</td>
+                                <td>1:1</td>
+                            </tr>
+                            <tr>
+                                <td>❤️</td>
+                                <td>Common</td>
+                                <td>0.5:1</td>
+                                <td>0.75:1</td>
+                            </tr>
+                            <tr>
+                                <td>🍒</td>
+                                <td>Common</td>
+                                <td>0.5:1</td>
+                                <td>0.25:1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="alert alert-info">
+                    <p class="mb-0">Use <code>!symbols</code> to see this information in Discord.</p>
+                    <p class="mb-0">Use <code>!odds</code> to see slot machine odds.</p>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="mb-3">Economy System</h2>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4 h-100">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="card-title h5 mb-0">💰 Economy Commands</h3>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <strong>!balance</strong> - Check your balance<br>
+                                <small class="text-muted">You can also check other users' balances with <code>!balance @username</code></small>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>!daily</strong> - Collect your daily reward of 100 coins<br>
+                                <small class="text-muted">You can claim this once every 24 hours</small>
+                            </li>
+                            <li class="list-group-item">
+                                <strong>!leaderboard</strong> - See the richest users in the server
+                            </li>
+                            <li class="list-group-item">
+                                <strong>!give &lt;user&gt; &lt;amount&gt;</strong> - Give coins to another user<br>
+                                <small class="text-muted">Example: <code>!give @friend 50</code></small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card mb-4 h-100">
+                    <div class="card-header bg-info text-white">
+                        <h3 class="card-title h5 mb-0">📊 Statistics</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>The bot tracks various statistics for each user:</p>
+                        <ul>
+                            <li>Number of slots played</li>
+                            <li>Number of slots won</li>
+                            <li>Win rate percentage</li>
+                            <li>Highest win amount</li>
+                        </ul>
+                        <p>You can see these stats when checking your balance with <code>!balance</code>.</p>
+                        <div class="alert alert-warning">
+                            <p class="mb-0">Remember that gambling should be for fun only. Don't get too caught up in your virtual balance!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
